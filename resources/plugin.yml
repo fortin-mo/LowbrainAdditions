@@ -1,0 +1,5 @@
+name: LowbrainAdditions
+version: 0.0.1
+main: lowbrain.additions.main.LowbrainAdditions
+author: mooffy
+depend: [ AdditionsAPI, LowbrainLibrary ]
