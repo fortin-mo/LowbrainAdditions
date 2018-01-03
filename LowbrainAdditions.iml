@@ -9,5 +9,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="AdditionsAPI-1.2.7-SNAPSHOT-shaded" level="project" />
     <orderEntry type="library" name="spigot-1.12.2" level="project" />
+    <orderEntry type="module" module-name="ArmorEquipEvent" />
   </component>
 </module>

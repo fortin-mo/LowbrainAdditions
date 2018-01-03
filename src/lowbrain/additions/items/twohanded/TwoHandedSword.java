@@ -1,4 +1,4 @@
-package lowbrain.additions.items.katana;
+package lowbrain.additions.items.twohanded;
 
 import com.chrismin13.additionsapi.items.textured.CustomTexturedTool;
 import com.chrismin13.additionsapi.recipes.CustomShapedRecipe;
@@ -6,9 +6,9 @@ import com.chrismin13.additionsapi.recipes.RecipeIngredient;
 import org.bukkit.Material;
 import us.fihgu.toolbox.item.DamageableItem;
 
-public class Katana extends CustomTexturedTool {
+public class TwoHandedSword extends CustomTexturedTool {
 
-    public Katana(DamageableItem item, String idName, String defaultTexture, String displayName, int durability) {
+    public TwoHandedSword(DamageableItem item, String idName, String defaultTexture, String displayName, int durability) {
         super(item, idName, defaultTexture);
 
         this.setDisplayName(displayName);
@@ -21,11 +21,11 @@ public class Katana extends CustomTexturedTool {
         this.setCombinedInCrafting(true);
     }
 
-    public Katana(DamageableItem item, String idName, String defaultTexture, String displayName) {
-        this(item, idName, defaultTexture, displayName, (int)(item.getMaxDurability() * 1.15));
+    public TwoHandedSword(DamageableItem item, String idName, String defaultTexture, String displayName) {
+        this(item, idName, defaultTexture, displayName, (int)(item.getMaxDurability() * 1.25));
 
-        this.addAttackDamage(item.getAttackDamage() * 1.10);
-        this.addAttackSpeed(item.getAttackSpeed() * 1.10);
+        this.addAttackDamage(item.getAttackDamage() * 1.5);
+        this.addAttackSpeed(item.getAttackSpeed() * 0.50);
     }
 
     public void loadRecipe(Material mat) {
@@ -39,10 +39,11 @@ public class Katana extends CustomTexturedTool {
         itemRecipe2.setIngredient('2', new RecipeIngredient(mat));
 
 
-        itemRecipe.setShape("022", "020", "010");
-        itemRecipe2.setShape("220", "200", "100");
+        itemRecipe.setShape("022", "022", "011");
+        itemRecipe2.setShape("220", "220", "110");
 
         this.addCustomRecipe(itemRecipe);
         this.addCustomRecipe(itemRecipe2);
     }
+
 }

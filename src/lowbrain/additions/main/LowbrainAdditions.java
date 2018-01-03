@@ -12,7 +12,6 @@ public class LowbrainAdditions extends JavaPlugin {
         PluginManager pluginManager = this.getServer().getPluginManager();
 
         pluginManager.registerEvents(new InitialListener(), this);
-
     }
 
     public static JavaPlugin getInstance() {

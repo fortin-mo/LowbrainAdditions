@@ -7,11 +7,7 @@ import us.fihgu.toolbox.item.DamageableItem;
 
 public class IronKatana extends Katana {
     public IronKatana() {
-        super(DamageableItem.IRON_SWORD,"modified_additions:iron_katana", "iron_katana", "Iron Katana",Material.IRON_SWORD.getMaxDurability());
-
-        this.addAttackDamage(MaterialUtils.getBaseDamage(Material.IRON_SWORD) + 0.35);
-        this.addAttackSpeed(MaterialUtils.getBaseSpeed(Material.IRON_SWORD) - 0.15);
-
-        loadRecipe(Material.EMERALD);
+        super(DamageableItem.IRON_SWORD,"lowbrain_additions:iron_katana", "iron_katana", "Iron Katana");
+        loadRecipe(Material.IRON_INGOT);
     }
 }

@@ -7,11 +7,7 @@ import us.fihgu.toolbox.item.DamageableItem;
 
 public class DiamondKatana extends Katana {
     public DiamondKatana() {
-        super(DamageableItem.DIAMOND_SWORD,"modified_additions:diamond_katana", "diamond_katana", "Diamond Katana",Material.DIAMOND_SWORD.getMaxDurability());
-
-        this.addAttackDamage(MaterialUtils.getBaseDamage(Material.DIAMOND_SWORD) + 0.35);
-        this.addAttackSpeed(MaterialUtils.getBaseSpeed(Material.DIAMOND_SWORD) - 0.15);
-
+        super(DamageableItem.DIAMOND_SWORD,"lowbrain_additions:diamond_katana", "diamond_katana", "Diamond Katana");
         loadRecipe(Material.DIAMOND);
     }
 }

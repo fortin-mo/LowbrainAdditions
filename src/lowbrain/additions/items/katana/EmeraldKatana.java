@@ -5,10 +5,10 @@ import us.fihgu.toolbox.item.DamageableItem;
 
 public class EmeraldKatana extends Katana {
     public EmeraldKatana () {
-        super(DamageableItem.DIAMOND_SWORD,"modified_additions:emerald_katana", "emerald_katana", "Emerald Katana",3123);
+        super(DamageableItem.DIAMOND_SWORD,"lowbrain_additions:emerald_katana", "emerald_katana", "Emerald Katana",3123);
 
-        this.addAttackDamage(8.5);
-        this.addAttackSpeed(2);
+        this.addAttackDamage(DamageableItem.DIAMOND_SWORD.getAttackDamage() * 1.25);
+        this.addAttackSpeed(DamageableItem.DIAMOND_SWORD.getAttackSpeed() * 1.125);
 
         loadRecipe(Material.EMERALD);
     }
