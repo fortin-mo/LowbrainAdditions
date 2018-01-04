@@ -4,17 +4,20 @@ import com.chrismin13.additionsapi.AdditionsAPI;
 import com.chrismin13.additionsapi.events.AdditionsAPIInitializationEvent;
 import com.chrismin13.additionsapi.items.CustomItem;
 import com.chrismin13.additionsapi.items.CustomItemStack;
-import com.chrismin13.additionsapi.listeners.custom.ArmorEquip;
 import lowbrain.additions.items.dagger.*;
 import lowbrain.additions.items.katana.*;
 import lowbrain.additions.items.twohanded.*;
 import lowbrain.additions.main.LowbrainAdditions;
 import lowbrain.armorequip.ArmorEquipEvent;
 import lowbrain.armorequip.ArmorType;
+import lowbrain.armorequip.MainHandEvent;
+import lowbrain.armorequip.MainHandListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -41,49 +44,71 @@ public class InitialListener implements Listener {
         api.addCustomItem(new DiamondTwoHandedSword());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onArmorEquip(ArmorEquipEvent event) {
-        if (event.isCancelled() || event.getNewArmorPiece() == null || !event.getType().equals(ArmorType.OFF_HAND))
+        if (event.isCancelled()
+                || event.getNewArmorPiece() == null
+                || !(event.getType().equals(ArmorType.OFF_HAND) || event.getType().equals(ArmorType.SHIELD)))
             return;
 
         Player player = event.getPlayer();
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+        ItemStack inHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = event.getNewArmorPiece();
 
-        if (itemInHand == null || itemInHand.getType().equals(Material.AIR))
+        CustomItem customItem = getCustomItem(offHand);
+
+        if (customItem != null && customItem instanceof TwoHandedSword) {
+            // cannot wear two handed sword in off hand, cancel event
+            event.setCancelled(true);
+            return;
+        }
+
+        if (inHand == null || inHand.getType().equals(Material.AIR))
             return;
 
-        if (AdditionsAPI.isCustomItem(itemInHand)) {
-            CustomItemStack cStack = new CustomItemStack(itemInHand);
-            CustomItem cItem = cStack.getCustomItem();
+        customItem = getCustomItem(inHand);
 
-            if (cItem instanceof TwoHandedSword) {
-                event.setCancelled(true);
-                return;
-            }
+        if (customItem != null && customItem instanceof TwoHandedSword) {
+            // cannot wear off hand item while holding a two handed sword
+            event.setCancelled(true);
+            return;
         }
     }
 
-    public void onItemHeld(PlayerItemHeldEvent event) {
-        Player player = event.getPlayer();
-
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
-        ItemStack itemOffHand = player.getInventory().getItemInOffHand();
-
-        if (itemInHand == null
-                || itemInHand.getType().equals(Material.AIR)
-                || itemOffHand == null
-                || itemOffHand.getType().equals(Material.AIR))
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public final void onHeldItemChanged(final MainHandEvent e) {
+        if (e.isCancelled())
             return;
 
-        if (AdditionsAPI.isCustomItem(itemInHand)) {
-            CustomItemStack cStack = new CustomItemStack(itemInHand);
-            CustomItem cItem = cStack.getCustomItem();
+        Player player = e.getPlayer();
 
-            if (cItem instanceof TwoHandedSword) {
-                // remove item from off hand and move it to inventory
-                player.getInventory().setItemInOffHand(null);
-                player.getInventory().addItem(itemInHand);
-            }
+        ItemStack newItem = e.getNewItem();
+
+        if (newItem == null)
+            return;
+
+        CustomItem cItem = getCustomItem(newItem);
+
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+
+        if (cItem != null && cItem instanceof TwoHandedSword) {
+            // remove item from off hand and move it to inventory
+            player.getInventory().setItemInOffHand(null);
+            player.getInventory().addItem(offHand);
         }
     }
+
+    private CustomItem getCustomItem(ItemStack i) {
+        CustomItem c = null;
+
+        if (AdditionsAPI.isCustomItem(i)) {
+            CustomItemStack cStack = new CustomItemStack(i);
+            CustomItem cItem = cStack.getCustomItem();
+
+            c = cItem;
+        }
+
+        return c;
+    }
+
 }

@@ -25,7 +25,7 @@ public class TwoHandedSword extends CustomTexturedTool {
         this(item, idName, defaultTexture, displayName, (int)(item.getMaxDurability() * 1.25));
 
         this.addAttackDamage(item.getAttackDamage() * 1.5);
-        this.addAttackSpeed(item.getAttackSpeed() * 0.50);
+        this.addAttackSpeed(item.getAttackSpeed() * 0.45);
     }
 
     public void loadRecipe(Material mat) {
