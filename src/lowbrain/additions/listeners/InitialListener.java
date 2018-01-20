@@ -8,17 +8,14 @@ import lowbrain.additions.items.dagger.*;
 import lowbrain.additions.items.katana.*;
 import lowbrain.additions.items.twohanded.*;
 import lowbrain.additions.main.LowbrainAdditions;
-import lowbrain.armorequip.ArmorEquipEvent;
-import lowbrain.armorequip.ArmorType;
-import lowbrain.armorequip.MainHandEvent;
-import lowbrain.armorequip.MainHandListener;
+import lowbrain.armorequip.events.ArmorEquipEvent;
+import lowbrain.armorequip.events.ArmorType;
+import lowbrain.armorequip.events.MainHandEvent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class InitialListener implements Listener {
